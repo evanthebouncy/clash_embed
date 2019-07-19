@@ -25,10 +25,11 @@ class Draft(nn.Module):
         self.name = "EMB"
 
         # for now emb_dim is n_hidden is same. might change later
-        n_hidden = emb_dim
+        n_hidden = 128
         self.n_hidden = n_hidden
 
         self.emb = nn.Linear(feature_dim, emb_dim)
+        self.emb_to_hidden = nn.Linear(emb_dim, n_hidden)
 
         # for the transformer network
         self.Q = nn.Linear(n_hidden, n_hidden)
@@ -62,6 +63,7 @@ class Draft(nn.Module):
 
     def forward(self, As):
         embA = [self.emb(A) for A in As]
+        embA = [F.relu(self.emb_to_hidden(a)) for a in embA]
         nodes = embA
         for i in range(3):
             nodes = self.communicate(nodes)
