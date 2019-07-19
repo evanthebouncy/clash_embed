@@ -40,7 +40,7 @@ class Draft(nn.Module):
         self.fc1 = nn.Linear(n_hidden, n_hidden)
         self.fc2 = nn.Linear(n_hidden, feature_dim)
 
-        self.opt = torch.optim.RMSprop(self.parameters(), lr=0.00001)
+        self.opt = torch.optim.RMSprop(self.parameters(), lr=0.0001)
 
 
     def communicate(self, nodes):
