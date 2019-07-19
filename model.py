@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
+import tqdm
 
 if torch.cuda.is_available():
     def to_torch(x, dtype, req = False):
@@ -104,7 +105,7 @@ if __name__ == '__main__':
 
     draft = Draft(L, 32).cuda()
 
-    for i in range(100000):
+    for i in tqdm.tqdm(range(10000000)):
         As,Bs = gen_train_batch(100)
         loss = draft.learn_once(As,Bs)
         if i % 100 == 0:
