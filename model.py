@@ -26,7 +26,7 @@ class Draft(nn.Module):
         self.name = "EMB"
 
         # for now emb_dim is n_hidden is same. might change later
-        n_hidden = 128
+        n_hidden = 256
         self.n_hidden = n_hidden
 
         self.emb = nn.Linear(feature_dim, emb_dim)
@@ -66,7 +66,7 @@ class Draft(nn.Module):
         embA = [self.emb(A) for A in As]
         embA = [F.relu(self.emb_to_hidden(a)) for a in embA]
         nodes = embA
-        for i in range(3):
+        for i in range(5):
             nodes = self.communicate(nodes)
 
         agg, _ = torch.max(torch.stack(nodes), dim=0)
