@@ -73,6 +73,11 @@ class Draft(nn.Module):
 
         return F.log_softmax(self.fc2(F.relu(self.fc1(agg))), dim=1)
 
+    def forward_pr(self, numpy_As):
+        As = [to_torch(a, "float").unsqueeze(0) for a in numpy_As]
+        x = self(As).detach().squeeze().cpu().numpy()
+        return np.exp(x)
+
     def loss(self, Bs_pred, Bs):
         return -torch.sum(Bs_pred * Bs)
   
@@ -91,7 +96,7 @@ class Draft(nn.Module):
 
     def embed(self, X):
         X = to_torch(X, "float")
-        return self.encode(X)
+        return self.emb(X)
 
     def save(self, loc):
         torch.save(self.state_dict(), loc)
