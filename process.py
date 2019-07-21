@@ -18,6 +18,13 @@ L = len(card_ids)
 
 card_2_1hot = dict([(card_ids[i],i) for i in range(L)])
 
+def get_unique_decks(id_decks):
+    seen = set()
+    for dek in id_decks:
+        dek = tuple(sorted(dek))
+        seen.add(dek)
+    return seen
+
 def cards_to_vec(cards):
     ret = np.zeros((L,))
     for c in cards:
@@ -34,8 +41,10 @@ def gen_random_training(n):
         return gen_random_training()
     return A, B
 
-def gen_train_batch(n=10):
+def gen_train_batch(n=10, lhs_card=None):
     random_card_num = random.choice([1,2,3,4,5,6,7])
+    if lhs_card is not None:
+        random_card_num = lhs_card
     tr = [gen_random_training(random_card_num) for _ in range(n)]
     As = [[] for _ in range(random_card_num)]
     for A,B in tr:
@@ -48,5 +57,5 @@ def gen_train_batch(n=10):
 if __name__ == '__main__':
     print (cards_to_vec(id_decks[0]))
     print (gen_random_training(3))
-    bat_A, bat_B = gen_train_batch(200)
+    bat_A, bat_B = gen_train_batch(200, 7)
     import pdb; pdb.set_trace()

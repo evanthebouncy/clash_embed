@@ -26,6 +26,7 @@ def grab_clans(location):
     return tags
 
 # clan_tags = grab_clans(locations[0])
+# print (len(clan_tags))
 # print ('clan tags ', clan_tags)
 
 def grab_clan_players(clan_tag):
@@ -34,29 +35,37 @@ def grab_clan_players(clan_tag):
     tags = [x['tag'] for x in r.json()['items']]
     return tags
 
-# player_tags = grab_clan_players(clan_tags[0].replace("#",'%23'))
+# player_tags = grab_clan_players(clan_tags[-1].replace("#",'%23'))
 # print ('player tags ', player_tags)
 
 def grab_player_cards(player_id):
     url = 'https://api.clashroyale.com/v1/players/' + player_id
     r = requests.get(url, headers = headers)
-    print (r)
     player = r.json()
-    return [(x['name'], x['id']) for x in player["currentDeck"]]
+    if player['challengeMaxWins'] >= 12:
+        print ("pro")
+        return [(x['name'], x['id']) for x in player["currentDeck"]]
+    else:
+        print ("noob")
+        return None
 
-# deck = grab_player_cards(player_tags[0].replace("#", '%23'))
-# print ('player deck ', deck)
+
+#deck = grab_player_cards(player_tags[-1].replace("#", '%23'))
+#print ('player deck ', deck)
+#assert 0
 
 all_decks = []
 for location in grab_locations():
     time.sleep(0.1)
-    for clan in grab_clans(location):
+    # top 100 clans
+    for clan in grab_clans(location)[:100]:
         try:
             time.sleep(0.1)
             for player in grab_clan_players(clan.replace("#","%23")):
                 time.sleep(0.1)
                 cards = grab_player_cards(player.replace("#","%23"))
-                all_decks.append(cards)
+                if cards is not None:
+                    all_decks.append(cards)
             print (len(all_decks), 'dumping !')
             pickle.dump(all_decks, open( "decks.p", "wb" ) )
         except:
