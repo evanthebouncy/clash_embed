@@ -3,7 +3,7 @@ import numpy as np
 import random
 
 # extract entities and encodings and such
-decks = pickle.load(open("decks.p", "rb"))
+decks = pickle.load(open("decks_200k.p", "rb"))
 id_decks = [[x[1] for x in deck] for deck in decks]
 
 card_ids = set()
