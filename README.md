@@ -6,6 +6,8 @@ https://medium.com/@evanthebouncy/card-similarities-in-clash-royal-80188d22d5b7
 
 # Files and descriptions 
 
+card\_emb.json : the learned embedding
+
 assets/ : stores the image files for card icons
 
 decks\_200k.p : a pickle file of 200k competitive clash decks scrapped

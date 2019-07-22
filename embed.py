@@ -10,6 +10,12 @@ e = emb_one.embed(X).detach().cpu().squeeze().numpy()
 print (e)
 print (e.shape)
 
+e_as_list = [str(list(ee)) for ee in e]
+to_dump = list(zip(card_ids, e_as_list))
+import json
+with open('card_emb.json', 'w') as fp:
+    json.dump(to_dump, fp)
+
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from sklearn.manifold import TSNE
