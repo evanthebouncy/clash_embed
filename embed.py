@@ -1,12 +1,12 @@
 import numpy as np
-from model import Draft
+from model_emb import EMB
 from process import gen_train_batch, L, card_ids, cards_to_vec, id_2_name
 
-draft = Draft(L, 32).cuda()
-draft.load("saved_models/draft2.mdl")
+emb_one = EMB(L, 32).cuda()
+emb_one.load("saved_models/emb_single1.mdl")
 
 X = np.array([cards_to_vec([x]) for x in card_ids])
-e = draft.embed(X).detach().cpu().squeeze().numpy()
+e = emb_one.embed(X).detach().cpu().squeeze().numpy()
 print (e)
 print (e.shape)
 

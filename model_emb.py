@@ -107,7 +107,7 @@ class EMB(nn.Module):
 
     def embed(self, X):
         X = to_torch(X, "float")
-        return self.emb(X)
+        return self.one_emb(X)
 
     def save(self, loc):
         torch.save(self.state_dict(), loc)

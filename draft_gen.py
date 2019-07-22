@@ -3,10 +3,9 @@ from model import Draft
 from process import gen_train_batch, L, card_ids, cards_to_vec, id_2_name
 
 draft = Draft(L, 32).cuda()
-draft.load("saved_models/draft2.mdl")
+draft.load("saved_models/draft_1.mdl")
 
-# deck = [np.random.choice(card_ids)]
-deck = [card_ids[50]]
+deck = [np.random.choice(card_ids)]
 
 As = [cards_to_vec(deck)]
 
