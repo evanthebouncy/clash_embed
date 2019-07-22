@@ -2,6 +2,8 @@
 
 For what this is on a high level, see the medium post :
 
+https://medium.com/@evanthebouncy/card-similarities-in-clash-royal-80188d22d5b7
+
 # Files and descriptions 
 
 assets/ : stores the image files for card icons
